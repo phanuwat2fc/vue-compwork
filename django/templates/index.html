@@ -1,0 +1,11 @@
+{% extends 'layout/base.html' %}
+{% block title %}Index{% endblock %}
+{% block contents %}
+<ul>
+    {{ id }}
+    {% for i in even %}
+    <li>{{ i }}</li>
+    {% endfor %}     
+</ul>
+<a href="{% url 'myapp:hello' %}">go to hello</a><br>
+{% endblock %}
