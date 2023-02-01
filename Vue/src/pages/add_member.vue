@@ -19,8 +19,6 @@
 </template>
 
 <script setup>
-
-
 import listmember from "../components/listmember.vue";
 import { ref } from "vue";
 import router from "../router";
@@ -33,17 +31,16 @@ const rank = ref("");
 
 const onSubmit = () => {
   var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "text/plain");
+  myHeaders.append("Authorization", "Basic YWRtaW46YWRtaW4=");
+  myHeaders.append("Content-Type", "application/json");
 
   var raw = JSON.stringify({
-    "email":email.value,
-    "firstname":firstname.value,
-    "lastname":lastname.value,
-    "phone":phone.value,
-    "rank":rank.value
-
+    firstname: firstname.value,
+    lastname: lastname.value,
+    phone: phone.value,
+    email: email.value,
+    rank: rank.value,
   });
-    
 
   var requestOptions = {
     method: "POST",
@@ -52,9 +49,11 @@ const onSubmit = () => {
     redirect: "follow",
   };
 
-  fetch("http://127.0.0.1:8000/api/member/list/create/", requestOptions)
+  fetch("http://127.0.0.1:8000/api/member/", requestOptions)
     .then((response) => response.json())
-    .then(result => console.log(result))
+    .then((result) => {
+      router.push('/member')
+    })
     .catch((error) => console.log("error", error));
 };
 </script>
