@@ -1,6 +1,5 @@
 <template>
   <div class="flex flex-row">
-    <Sidebar />
     <div class="px-4 py-4">
       <label class="text-2xl font-bold">Notification</label>
       <Noti/>
@@ -14,7 +13,6 @@
   </div>
 </template>
 <script setup>
-import Sidebar from "../components/Sidebar.vue";
 import Checkin from '../components/Checkin.vue'
 import Checkout from '../components/Checkout.vue'
 import Noti from '../components/Noti.vue'
