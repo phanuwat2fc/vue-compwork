@@ -4,6 +4,7 @@ import member from '../pages/member.vue'
 import workhome from '../pages/workhome.vue'
 import calendar  from '../pages/calendar.vue'
 import add_member from '../pages/add_member.vue'
+import edit_member from '../pages/edit_member.vue'
 
 import { createRouter, createWebHistory } from "vue-router"
 
@@ -38,6 +39,11 @@ const routes = [
         path:'/add_member',
         name:'add_member',
         component:add_member
+    },
+    {
+        path:'/edit_member',
+        name:'edit_member',
+        component:edit_member
     },
     
 
