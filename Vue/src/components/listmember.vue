@@ -81,7 +81,7 @@ const columns = ref([
     name: "rank",
     align: "center",
     label: "Job",
-    field: "rank_name",
+    field: "rank",
     sortable: true,
   },
   {
