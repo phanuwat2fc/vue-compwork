@@ -2,10 +2,7 @@
 {% block title %}Index{% endblock %}
 {% block contents %}
 <ul>
-    {{ id }}
-    {% for i in even %}
-    <li>{{ i }}</li>
-    {% endfor %}     
+    {{ member }}
 </ul>
 <a href="{% url 'myapp:hello' %}">go to hello</a><br>
 {% endblock %}
