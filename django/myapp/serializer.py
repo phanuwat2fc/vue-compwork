@@ -10,4 +10,8 @@ class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
         fields = ['id', 'firstname', 'lastname', 'phone', 'email' , 'rank']
+
+    def create(self, validated_data):
+        print("Create Member !!")
+        return Member.objects.create(**validated_data)
      
