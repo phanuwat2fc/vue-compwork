@@ -12,8 +12,7 @@ class EventSerializer(serializers.ModelSerializer):
         fields = ['event']
 
 class MemberSerializer(serializers.ModelSerializer):
-    rank = RankSerializer(read_only=True)
-    event = EventSerializer(read_only=True)
+    rank_name = serializers.CharField(source="rank")
     class Meta:
         model = Member
-        fields = ['firstname', 'lastname', 'rank', 'event']
+        fields = ['email','id','firstname','lastname','rank_name','event','phone']
