@@ -110,7 +110,7 @@ const columns = ref([
 const rows = ref([]);
 
 const fetchData = () => {
-  fetch("http://127.0.0.1:8000/api/member/list/")
+  fetch("http://127.0.0.1:8000/api/member/")
     .then(async (res) => await res.json())
     .then((result) => {
       rows.value = result;
