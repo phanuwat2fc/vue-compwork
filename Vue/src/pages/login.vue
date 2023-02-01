@@ -36,11 +36,11 @@
                 id="default-checkbox"
                 type="checkbox"
                 value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                class="w-4 h-4 mt-2 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
               <label
                 for="default-checkbox"
-                class="ml-2  text-sm font-medium text-white dark:text-gray-300"
+                class="ml-2 mb-2 text-sm font-medium text-white dark:text-gray-300"
                 >Remember me</label
               >
             </div>
@@ -53,7 +53,7 @@
 
           <button
             type="submit"
-            class="relative sm:px-26 md:px-30 inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200"
+            class="relative sm:px-26 md:px-30 inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-blue  focus:ring-4 focus:outline-none focus:ring-cyan-200"
           >
             <p
               class="relative px-40 min-w-min py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0"

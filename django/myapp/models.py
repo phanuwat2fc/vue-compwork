@@ -1,5 +1,5 @@
 from django.db import models
-import ipdb
+
 
 # Create your models here.
 
