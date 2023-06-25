@@ -1,17 +1,18 @@
 <template>
-  <div class="flex flex-row">
-    <div class="px-4 py-4 flex flex-col">
-      <label class="text-2xl font-bold">Create Member</label>
+  <div class="">
+    <div class="px-4 py-4 flex flex-col ">
       <div class="q-pa-md" style="max-width: 100%">
-        <q-form @submit="onSubmit" class="q-gutter-md">
-          <q-input v-model="email" label="Email" />
-          <q-input v-model="firstname" label="Firstname" />
-          <q-input v-model="lastname" label="Lastname" />
-          <q-input v-model="phone" label="Phone" />
-          <q-input v-model="rank" label="ตำแหน่งงาน" />
-
-          <q-btn color="white" text-color="black" label="Back" to="/member" />
-          <q-btn label="Submit" type="submit" color="primary" />
+        <q-form  class="q-gutter-md">
+          <label class="text-2xl font-bold ">สมัครใช้งาน</label>
+          <q-input v-model="add.email" label="Email" />
+          <q-input v-model="add.password" type="password"  label="Password" />
+          <q-input v-model="add.firstname" label="Firstname" />
+          <q-input v-model="add.lastname" label="Lastname" />
+          <q-input v-model="add.team" label="Team" />
+          <q-input v-model="add.rank" label="ตำแหน่งงาน" />
+          <!-- <q-input v-model="confirmpassword" type="password"  label="Confirmpassword" /> -->
+          <q-btn color="white" text-color="black" label="Back" to="/" />
+          <q-btn label="Submit" @click="add_users" color="primary" />
         </q-form>
       </div>
     </div>
@@ -19,43 +20,38 @@
 </template>
 
 <script setup>
-import listmember from "../components/listmember.vue";
-import { ref } from "vue";
-import router from "../router";
+import { ref } from 'vue';
+import axios  from 'axios';
+import router from '../router';
 
-const email = ref("");
-const firstname = ref("");
-const lastname = ref("");
-const phone = ref("");
-const rank = ref("");
+const add = ref({
+email: '',
+password: '',
+firstname: '',
+lastname: '',
+team: '',
+rank: '',
+})
 
-const onSubmit = () => {
-  var myHeaders = new Headers();
-  myHeaders.append("Authorization", "Basic YWRtaW46YWRtaW4=");
-  myHeaders.append("Content-Type", "application/json");
+const add_users = async () => {
+await axios.post('http://localhost:8000/api/user/create/',{
+  "email":add.value.email,
+  "password":add.value.password,
+  "name":add.value.firstname,
+  "l_name":add.value.lastname,
+  "employee_type":add.value.rank,
+  "team":add.value.team,
+})
+.then((res) => {
+  alert ('เพิ่มสมาชิกเรียบร้อย')
+   router.push('/member')
+  console.log(res);
+}).catch((err) => {
+  console.log(err);
+})
+}
 
-  var raw = JSON.stringify({
-    firstname: firstname.value,
-    lastname: lastname.value,
-    phone: phone.value,
-    email: email.value,
-    rank: rank.value,
-  });
 
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
-  };
 
-  fetch("http://127.0.0.1:8000/api/member/", requestOptions)
-    .then((response) => response.json())
-    .then((result) => {
-      router.push('/member')
-    })
-    .catch((error) => console.log("error", error));
-};
+
 </script>
-
-<style lang=""></style>

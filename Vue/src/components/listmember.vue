@@ -3,133 +3,122 @@
     <div class="q-py-md ">
       <q-btn color="light-blue-6" @click="onAdd">Add Member</q-btn>
     </div>
-    <q-table
-      class="my-sticky-header-table" 
-      :rows="rows"
-      :columns="columns"
-      row-key="name"
-    >
-      <template v-slot:body-cell-actions="props" class="h-96">
-        <q-td :props="props">
-          <div class="q-pa-md">
-            <q-btn-dropdown color="primary" label="">
-              <q-list>
-                <q-item  v-close-popup @click="checkin = true">
-                  <q-item-section>
-                    <q-btn color="positive">Check in</q-btn>
-                  </q-item-section>
-                </q-item>
+   
 
-                <q-item  v-close-popup @click="onItemClick">
-                  <q-item-section>
-                    <q-btn color="deep-orange">Check out</q-btn>
-                  </q-item-section>
-                </q-item>
+    
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Firstname
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Lastname
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Email
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Position
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Team
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    <span class="sr-only">Edit</span>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    <span class="sr-only">Leave</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody v-for="(user , index) in users">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ index+1 }}
+                </th>
+                <td class="px-6 py-4">
+                    {{user.name}}
+                </td>
+                <td class="px-6 py-4">
+                    {{user.l_name}}
+                </td>
+                <td class="px-6 py-4">
+                    {{user.email}}
+                </td>
+                <td class="px-6 py-4">
+                    {{user.employee_type}}
+                </td>
+                <td class="px-6 py-4">
+                    {{user.team}}
+                </td>
+                <td class="px-6 py-4 text-right">
+                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" @click="delete_users(user.id)">Delete</a>
+                </td>
+                <td class="px-6 py-4 text-right">
+                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Leave</a>
+                </td>
+            </tr>
+        
+        </tbody>
+    </table>
+</div>
 
-                <q-item v-close-popup @click="onItemClick">
-                  <q-item-section>
-                    <q-btn color="warning" @cilck="open('top')">Leave</q-btn>
-                  </q-item-section>
-                </q-item>
 
-                <q-item  v-close-popup @click="onItemClick">
-                  <q-item-section>
-                    <q-btn color="info" @click="onEdit(props.row.id)">Edit</q-btn>
-                  </q-item-section>
-                </q-item>
-              </q-list>
-            </q-btn-dropdown>
-          </div>
-        </q-td>
 
-            
-      </template>
-
-    </q-table>
 
 
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import router from '../router'
+import axios from "axios";
+
+const users = ref({});
+const token = localStorage.getItem('Token')
+
+// axios
+const config = {
+  headers: {
+    Authorization: `Token ${token}`,
+  }
+}
 
 
-const columns = ref([
-  { name: "id", 
-    align: "left", 
-    label: "id", 
-    field: "id", 
-    sortable: true 
-  },
-  {
-    name: "firstname",
-    align: "center",
-    label: "Name",
-    field: "firstname",
-    sortable: true,
-  },
-  {
-    name: "lastname",
-    align: "center",
-    label: "Surname",
-    field: "lastname",
-    sortable: true,
-  },
-  {
-    name: "rank",
-    align: "center",
-    label: "Job",
-    field: "rank",
-    sortable: true,
-  },
-  {
-    name: "phone",
-    align: "center",
-    label: "Phone Number",
-    field: "phone",
-    sortable: true,
-  },
-  {
-    name: "email",
-    align: "center",
-    label: "Email Address",
-    field: "email",
-    sortable: true,
-  },
-  {
-    name: "actions",
-    align: "center",
-    label: " ",
-    field: "dropdown",
-    sortable: true,
-  },
-]);
-
-const rows = ref([]);
-
-const fetchData = () => {
-  fetch("http://127.0.0.1:8000/api/member/")
-    .then(async (res) => await res.json())
-    .then((result) => {
-      rows.value = result;
-    });
-};
-fetchData();
-
-const onEdit = (id) => {
-  router.push('/edit_member')
-};
-
-const onLeave = (id) => {
-  alert(firstname+"Leave")
-};
 
 
-const onAdd = () => {
+const fetch_users = async () => {
+  await axios.get('http://localhost:8000/api/user/',config)
+  .then((response) => {
+    users.value = response.data
+  }).catch((err) =>{
+    console.log("User",err);
+  })
+}
+
+const delete_users = async (id) => {
+  console.log('delete ' , id);
+  await axios.delete(`http://localhost:8000/api/user/${id}`,config)
+  .then((response) => {
+    console.log(response);
+    window.location.reload()
+    }).catch((err)=>{
+    console.log(err);
+  })
+}
+
+
+onMounted(() => fetch_users())
+
+const onAdd = () =>{
   router.push('/add_member')
-};
+}
 
 </script>
 
