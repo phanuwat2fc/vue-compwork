@@ -1,0 +1,8 @@
+{% extends 'layout/base.html' %}
+{% block title %}Index{% endblock %}
+{% block contents %}
+<ul>
+    {{ member }}
+</ul>
+<a href="{% url 'myapp:hello' %}">go to hello</a><br>
+{% endblock %}
